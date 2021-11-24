@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  server:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - 3000:80
+    volumes:
+      - /home/adamandika/adamdock/data:/www/html/
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - /home/adamandika/adamdock/db:/docker-entrypoint-initdb.d
